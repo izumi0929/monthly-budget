@@ -1,11 +1,12 @@
 function makeTable (data, tableId) {
-  var rows = []
-  var table2 = document.createElement("table")
+  let rows = []
+  let calendarTable = document.createElement("table")
   for (i=0; i < data.length; i++){
-    rows.push(table2.insertRow(-1))
+    rows.push(calendarTable.insertRow(-1))
     for (j=0; j < data[0].length; j++){
       cell=rows[i].insertCell(-1)
       cell.appendChild(document.createTextNode(data[i][j]))
+      cell.onclick = console.log(data[i][j])
       if(i==0){
         cell.style.backgroundColor = "#bbb"; // ヘッダ行
       }else{
@@ -13,7 +14,11 @@ function makeTable (data, tableId) {
       }
     }
   }
-  document.getElementById(tableId).appendChild(table2)
+  document.getElementById(tableId).appendChild(calendarTable)
+}
+
+function dateAlert(date) {
+  alert("you clicked" + date)
 }
 
 function makeYYYYMM(year, month, monthId) {
@@ -28,19 +33,15 @@ let currentMonth = date.getMonth()
 window.addEventListener("load", makeCalendar(currentYear, currentMonth))
 
 function makeCalendar(year, month) {
-console.log(currentYear)
 let startDate = new Date(year, month, 1)
-console.log(startDate)
 let endDate = new Date(year, month+1, 0)
 const startDay = startDate.getDay()
 const endDay = endDate.getDay()
-var data = [["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]]
-var dates =[]
+let data = [["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]]
+let dates =[]
 for (dateIndex = 1; dateIndex <= endDate.getDate(); dateIndex++ ){
   dates.push(dateIndex)
 }
-console.log("初めの曜日"+startDay)
-console.log("終わりの曜日"+endDay)
 for (i = 0; i < startDay; i++){
   dates.unshift('')
 }
@@ -49,19 +50,15 @@ const secondWeek = dates.slice(7,14)
 const thirdWeek = dates.slice(14,21)
 const fourthWeek = dates.slice(21,28)
 const fifthWeek = dates.slice(28,36)
-console.log("endDay"+endDay)
 for (i = 0; i < 6 - endDay; i++){
   fifthWeek.push('')
 }
-console.log(dates)
-
 
 data.push(firstWeek)
 data.push(secondWeek)
 data.push(thirdWeek)
 data.push(fourthWeek)
 data.push(fifthWeek)
-// 表の動的作成
 makeTable(data,"table")
 makeYYYYMM(year, month, "month")
 }
