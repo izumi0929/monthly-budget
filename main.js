@@ -6,9 +6,19 @@ function makeTable (data, tableId) {
     for (j=0; j < data[0].length; j++){
       cell=rows[i].insertCell(-1)
       cell.appendChild(document.createTextNode(data[i][j]))
-      cell.onclick = console.log(data[i][j])
+      // TODO:i,jが書き換わっている
+      cell.onclick = function() {
+        alert("You clicked" + j)
+      };
+      console.log(data[i][j])
       if(i==0){
         cell.style.backgroundColor = "#bbb"; // ヘッダ行
+      }else if(j%7==6){
+        cell.style.color = "#4682B4"
+        cell.style.backgroundColor = "#ddd"
+      }else if(j%7==0){
+        cell.style.color = "#FFA07A"
+        cell.style.backgroundColor = "#ddd"
       }else{
         cell.style.backgroundColor = "#ddd"; // ヘッダ行以外
       }
