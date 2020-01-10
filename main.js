@@ -6,11 +6,9 @@ function makeTable (data, tableId) {
     for (j=0; j < data[0].length; j++){
       cell=rows[i].insertCell(-1)
       cell.appendChild(document.createTextNode(data[i][j]))
-      // TODO:i,jが書き換わっている
       cell.onclick = function() {
-        alert("You clicked" + j)
+        alert("You clicked" + currentYear + '/' + (currentMonth+1)+ '/' + this.textContent)
       };
-      console.log(data[i][j])
       if(i==0){
         cell.style.backgroundColor = "#bbb"; // ヘッダ行
       }else if(j%7==6){
