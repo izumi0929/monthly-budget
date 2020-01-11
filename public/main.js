@@ -6,8 +6,13 @@ function makeTable (data, tableId) {
     for (j=0; j < data[0].length; j++){
       cell=rows[i].insertCell(-1)
       cell.appendChild(document.createTextNode(data[i][j]))
+      cell.style.width = "5em"
+      cell.style.height = "3em"
+      cell.style.textAlign = "center"
       cell.onclick = function() {
-        alert("You clicked" + currentYear + '/' + (currentMonth+1)+ '/' + this.textContent)
+        // alert("You clicked" + currentYear + '/' + (currentMonth+1)+ '/' + this.textContent)
+        selectedDate = this.textContent
+        makeexpenseTitle(selectedDate)
       };
       if(i==0){
         cell.style.backgroundColor = "#bbb"; // ヘッダ行
@@ -23,10 +28,6 @@ function makeTable (data, tableId) {
     }
   }
   document.getElementById(tableId).appendChild(calendarTable)
-}
-
-function dateAlert(date) {
-  alert("you clicked" + date)
 }
 
 function makeYYYYMM(year, month, monthId) {
@@ -69,6 +70,16 @@ data.push(fourthWeek)
 data.push(fifthWeek)
 makeTable(data,"table")
 makeYYYYMM(year, month, "month")
+}
+
+window.addEventListener("load", makeexpenseTitle())
+function makeexpenseTitle(selectedDate = date.getDate() ){
+  document.getElementById("expenseTitle").innerHTML = selectedDate + "日の出費"
+}
+
+function addexpense(){
+  let p = document.createElement("p")
+  document.getElementById("expenses").appendChild(p).innerHTML = document.getElementById("expense").value
 }
 
 
