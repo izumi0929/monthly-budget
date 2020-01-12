@@ -1,4 +1,3 @@
-(function() {
   
 // Set the configuration for your app
 // TODO: Replace with your project's config object
@@ -21,9 +20,18 @@ var database = firebase.database();
 const preObject = document.getElementById('object')
 
 //Referenceの作成
-const dbRefObject = firebase.database().ref().child('object')
+const dbRefObject = firebase.database().ref().child('expenses')
 
 //Objectの変化と同期
-dbRefObject.on('value', snap => console.log(snap.val()))
+dbRefObject.on('value', snap => 
+  preObject.innerText = JSON.stringify(snap.val(), null, 3)
+)
 
-}())
+//set data
+function writeExpenseData(date, expense, type) {
+  firebase.database().ref('expenses').push({
+    'date': date,
+    'type': type,
+    'expense': expense
+  })
+}

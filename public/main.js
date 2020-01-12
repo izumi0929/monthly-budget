@@ -10,8 +10,8 @@ function makeTable (data, tableId) {
       cell.style.height = "3em"
       cell.style.textAlign = "center"
       cell.onclick = function() {
-        // alert("You clicked" + currentYear + '/' + (currentMonth+1)+ '/' + this.textContent)
         selectedDate = this.textContent
+        cuurrentDate = this.textContent
         makeExpenseTitle(selectedDate)
       };
       if(i==0){
@@ -36,6 +36,7 @@ function makeYYYYMM(year, month, monthId) {
 }
 
 const date = new Date()
+let cuurrentDate = date.getDate()
 let currentYear = date.getFullYear()
 let currentMonth = date.getMonth()
 
@@ -78,10 +79,9 @@ function makeExpenseTitle(selectedDate = date.getDate() ){
 }
 
 function addExpense(){
-  let p = document.createElement("p")
-  document.getElementById("expenses").appendChild(p).innerHTML = document.getElementById("expense").value
+  let expense = document.getElementById("expense").value
+  writeExpenseData(cuurrentDate, expense, 'self investment')
 }
-
 
 // TODO: 一つにする
 function showPreviousMonth() {
