@@ -1,26 +1,3 @@
-// Set the configuration for your app
-// TODO: Replace with your project's config object
-var config = {
-  apiKey: "AIzaSyAvqDHNMJCnTm7RmqoQ3ClRbGOc99wa8ZM",
-  authDomain: "monthly-expense-calendar.firebaseapp.com",
-  databaseURL: "https://monthly-expense-calendar.firebaseio.com/",
-  storageBucket: "monthly-expense-calendar.appspot.com"
-};
-firebase.initializeApp(config);
-
-// Get a reference to the database service
-var database = firebase.database();
-
-//Elementの取得
-const preObject = document.getElementById('object')
-
-//Referenceの作成
-const dbRefObject = firebase.databse().ref().child('object')
-
-//Objectの変化と同期
-dbRefObject.onclick('value', snap => console.log(snap.val()))
-
-
 function makeTable (data, tableId) {
   let rows = []
   let calendarTable = document.createElement("table")
