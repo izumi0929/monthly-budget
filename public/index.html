@@ -13,14 +13,24 @@
     <button type="button" onClick="showNextMonth()">></button>
     <div id="expenseForm">
       <p id="expenseTitle"></p>
-      <input type="number" name="expenseForm" id="expense" value="">
+      <span>費用：</span><input type="number" name="expenseForm" id="expense" value="">
+      <span>目的：</span>
+        <select name="purpose" id="purpose">
+        <option value="消費">消費</option>
+        <option value="投資">投資</option>
+        <option value="浪費">浪費</option>
+        </select>
+      <span>項目：</span>
+        <select name="item" id="item">
+        <option value="食費">食費</option>
+        <option value="日用品">日用品</option>
+        <option value="交通費">交通費</option>
+        </select>
       <input type="submit" name="expenseForm" onclick="addExpense()" value="追加">
     </div>
-    <div id="expenses"></div>
+    <ul id="expenses"></ul>
+    <div id="totalExpense"></div>
   
-    <pre id="object"></pre>
-    <button onClick="writeExpenseData(400, '浪費')">add expense</button>
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="/__/firebase/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>

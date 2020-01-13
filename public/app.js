@@ -6,7 +6,7 @@ var config = {
   authDomain: "monthly-expense-calendar.firebaseapp.com",
   databaseURL: "https://monthly-expense-calendar.firebaseio.com/",
   storageBucket: "monthly-expense-calendar.appspot.com"
-};
+}
 
 console.log(firebase.apps.length)
 if (!firebase.apps.length) {
@@ -14,24 +14,30 @@ if (!firebase.apps.length) {
 }
 
 // Get a reference to the database service
-var database = firebase.database();
+let database = firebase.database();
 
 //Elementの取得
-const preObject = document.getElementById('object')
+const preObject = document.getElementById('expenses')
+const totalExpenseObject = document.getElementById('totalExpense')
 
 //Referenceの作成
-const dbRefObject = firebase.database().ref().child('expenses')
+let dbRefObject = firebase.database().ref().child('expenses').child(currentYear+"-"+currentMonth+1+"-"+currentDate)
 
-//Objectの変化と同期
-dbRefObject.on('value', snap => 
-  preObject.innerText = JSON.stringify(snap.val(), null, 3)
-)
+// set selected YMD
+
+// Objectの変化と同期
+dbRefObject.on('child_added', function setExpenses(snap) {
+  let selectedDateExpenses = snap.val()
+  preObject.innerHTML +=  selectedDateExpenses.expense + "円<br>"
+})
 
 //set data
-function writeExpenseData(date, expense, type) {
-  firebase.database().ref('expenses').push({
-    'date': date,
-    'type': type,
-    'expense': expense
-  })
+function writeExpenseData(date, expense, purpose, item) {
+  firebase.database().ref('expenses/' + date).push(
+    {
+      'purpose': purpose,
+      'expense': expense,
+      'item': item
+    }
+  )
 }
