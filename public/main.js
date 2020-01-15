@@ -4,16 +4,28 @@ let currentYear = date.getFullYear()
 let currentMonth = date.getMonth()
 let currentYMD = currentYear+"-"+Number(currentMonth+1)+"-"+currentDate
 
-var config = {
-  apiKey: "AIzaSyAvqDHNMJCnTm7RmqoQ3ClRbGOc99wa8ZM",
-  authDomain: "monthly-expense-calendar.firebaseapp.com",
-  databaseURL: "https://monthly-expense-calendar.firebaseio.com/",
-  storageBucket: "monthly-expense-calendar.appspot.com"
-}
+//qa
+// var config = {
+//   apiKey: "AIzaSyAvqDHNMJCnTm7RmqoQ3ClRbGOc99wa8ZM",
+//   authDomain: "monthly-expense-calendar.firebaseapp.com",
+//   databaseURL: "https://monthly-expense-calendar.firebaseio.com/",
+//   storageBucket: "monthly-expense-calendar.appspot.com"
+// }
 
-console.log(firebase.apps.length)
+//dev
+const firebaseConfig = {
+  apiKey: "AIzaSyDWQ9ZTb4ptjOmL6eentJudr9WW8acOMBs",
+  authDomain: "monthly-expense-calendar-f49f3.firebaseapp.com",
+  databaseURL: "https://monthly-expense-calendar-f49f3.firebaseio.com",
+  projectId: "monthly-expense-calendar-f49f3",
+  storageBucket: "monthly-expense-calendar-f49f3.appspot.com",
+  messagingSenderId: "818718623155",
+  appId: "1:818718623155:web:56244da4e2064bdb9df7c6",
+  measurementId: "G-6YGR3ECTWX"
+};
+
 if (!firebase.apps.length) {
-  firebase.initializeApp(config);
+  firebase.initializeApp(firebaseConfig);
 }
 
 // Get a reference to the database service
