@@ -4,34 +4,47 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Expense Calendar</title>
-
+    <link href="style.css" rel="stylesheet">
+    <link href="style-small.css" rel="stylesheet">
+    <link href="style-large.css" rel="stylesheet">
   </head>
   <body>
-    <div id ="month"></div>
-    <div id="table"></div>
-      <button type="button" onClick="showPreviousMonth()"><</button>
-    <button type="button" onClick="showNextMonth()">></button>
-    <div id="expenseForm">
+    <header>
+      <button class="left-button" type="button" onClick="showPreviousMonth()" ><img src="icons/keyboard_arrow_left-24px.svg" alt="先月" /></button>
+      <div class="title" id ="month"></div>
+      <button class="right-button" type="button" onClick="showNextMonth()"><img src="icons/keyboard_arrow_right-24px.svg" alt="来月" /></button>
+    </header>
+    <main>
+      <div id="table"></div>
+      <div id="expenseForm">
+        <div class="expense-input">
       <p id="expenseTitle"></p>
-      <span>費用：</span><input type="number" id="expense" value="">
-      <span>詳細：</span><input type="text" id="description" value="">
-      <span>目的：</span>
-        <select name="purpose" id="purpose">
-        <option value="消費">消費</option>
-        <option value="投資">投資</option>
-        <option value="浪費">浪費</option>
-        </select>
-      <span>項目：</span>
-        <select name="item" id="item">
-        <option value="食費">食費</option>
-        <option value="日用品">日用品</option>
-        <option value="交通費">交通費</option>
-        </select>
-      <input type="submit" name="expenseForm" onclick="addExpense()" value="追加">
-    </div>
-    <ul id="expenses"></ul>
-    <div id="totalExpense"></div>
-  
+        </div>
+        <div class="expense-input"><span >費用：<input type="number" id="expense" value=""></span></div>
+        <div class="expense-input"><span>詳細：</span><input type="text" id="description" value=""></div>
+        <div class="expense-input"><span>目的：</span>
+          <select name="purpose" id="purpose">
+          <option value="消費">消費</option>
+          <option value="投資">投資</option>
+          <option value="浪費">浪費</option>
+          </select></div>
+        <div class="expense-input">
+        <span>項目：</span>
+          <select name="item" id="item">
+          <option value="食費">食費</option>
+          <option value="日用品">日用品</option>
+          <option value="交通費">交通費</option>
+          </select>
+        </div>
+      </div> 
+      <div class="expense-input">
+        <input type="submit" name="expenseForm" onclick="addExpense()" value="追加">
+      </div>
+      </div>
+      <ul id="expenses"></ul>
+      <div id="totalExpense"></div>
+      <div id="deleteExpense"></div>
+    </main>  
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="/__/firebase/7.6.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>

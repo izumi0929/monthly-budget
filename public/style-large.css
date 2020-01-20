@@ -1,0 +1,77 @@
+@media screen and (min-width:781px){
+  /*画面幅が781px以上の時*/
+
+html {
+  font-size: 10px;
+  font-family: 'YuGothic', sans-serif;
+  color: rgb(36, 36, 37);
+  background: linear-gradient(90deg, rgba(97,127,162,1) 10%, rgb(204, 161, 180) 150%);
+}
+
+body {
+  max-width: 60%;
+  margin: 5% auto;
+  font-size: 1.5em;
+}
+
+header {
+  position: relative;
+  text-align: center;
+  height: 4em;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+button img {
+  display: block;
+  width: 3em;
+}
+
+.left-button {
+  position: absolute;
+  left: 3em;
+  top: 2em;
+}
+
+.right-button {
+  position: absolute;
+  right: 3em;
+  top: 2em;
+}
+
+.title {
+  font-size: 3em;
+  font-weight: bold;
+  display: inline;
+  margin: 1em 0em;
+}
+
+table {
+  width: 100%;
+  margin: 5% auto;
+  border-spacing: 0.5em;
+}
+
+td {
+  border-radius: 5%;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+td:hover {
+  background-color: darkkhaki;
+}
+
+.cellTotal {
+  text-align: right;
+  padding-right: 1em;
+  line-height: 1em;
+  padding-bottom: 0em;
+}
+
+}

@@ -1,8 +1,8 @@
 const date = new Date()
-let currentDate = date.getDate()
-let currentYear = date.getFullYear()
-let currentMonth = date.getMonth()
-let currentYMD = currentYear+"-"+Number(currentMonth+1)+"-"+currentDate
+var currentDate = date.getDate()
+var currentYear = date.getFullYear()
+var currentMonth = date.getMonth()
+var currentYMD = currentYear+"-"+Number(currentMonth+1)+"-"+currentDate
 
 //qa
 // var config = {
@@ -35,7 +35,6 @@ let database = firebase.database();
 const preObject = document.getElementById('expenses')
 const totalExpenseObject = document.getElementById('totalExpense')
 
-
 //Referenceの作成
 let dbRefObject = firebase.database().ref().child('expenses').child(currentYear+"-"+Number(currentMonth+1)+"-"+currentDate)
 
@@ -55,37 +54,22 @@ function makeTable (data, tableId) {
       cell.style.width = "5em"
       cell.style.height = "3em"
       cell.style.verticalAlign = "text-top"
-      cell.style.backgroundColor = "#ddd"
-      cell.style.paddingLeft = "4px"
+      cell.style.backgroundColor = "rgba(205, 213, 223,1)"
+      cell.style.paddingLeft = "1em"
+      cell.style.paddingTop = "0.5em"
       cell.onclick = function() {
         selectedDate = this.textContent.slice(0,2)
         currentDate = this.textContent.slice(0,2)
         makeExpenseTitle(selectedDate)
-        dbRefObject = firebase.database().ref().child('expenses').child(currentYear+"-"+Number(currentMonth+1)+"-"+currentDate)
-        preObject.innerHTML = ''
-        totalExpenseObject.innerHTML = '出費がありません😆'
-        let totalExpense = 0
-        dbRefObject.on('child_added', function (snap) {
-          let selectedDateExpenses = snap.val()
-          preObject.innerHTML +=  "<li>" +
-          selectedDateExpenses.item + ": " +
-          selectedDateExpenses.description + " "+
-          selectedDateExpenses.expense + "円" +
-          "(" + selectedDateExpenses.purpose + ")</li>"
-          totalExpense += Number(selectedDateExpenses.expense)
-          totalExpenseObject.innerHTML = "合計 " + totalExpense + "円"
-        }
-        )
+        showExpenses()
       };
-      if(i==0){
-        cell.style.backgroundColor = "#bbb" // ヘッダ行
+      if(i == 0){
+        cell.style.backgroundColor = "rgb(204, 161, 180)" // ヘッダ行
         cell.style.textAlign = "center"
         cell.style.verticalAlign = "middle"
         cell.style.paddingLeft = "0em"
-      }else if(j%7==6){
-        cell.style.color = "#4682B4"
-      }else if(j%7==0){
-        cell.style.color = "#FFA07A"
+      }else if(j%7 == 0 || j%7 == 6){
+        cell.style.color = "rgb(204, 161, 180)"
       }else{
       }
     }
@@ -94,22 +78,59 @@ function makeTable (data, tableId) {
   for (i = 1; i < 32; i ++) {
     let dateNum = ("0" + i).slice(-2)
     let cellObject = document.getElementById(currentYear+"-"+Number(currentMonth+1)+"-"+dateNum)
+    cellObject.onmouseover = function() {
+      cellObject.style.backgroundColor = "rgba(204, 161, 180,0.3)"
+      cellObject.style.boxShadow = "0 1px 1px 0 rgba(0,0,0,0.5)"
+    }
+    cellObject.onmouseleave = function() {
+      cellObject.style.backgroundColor = "rgba(205, 213, 223,1)"
+      cellObject.style.boxShadow = "0 0 0 0"
+    }
     let totalExpense = 0
     let p = document.createElement('p')
     let node = document.createTextNode(totalExpense +"円")
     p.appendChild(node)
+    p.className = "cellTotal"
     cellObject.appendChild(p)
+    if (totalExpense == 0){
+      p.innerHTML = "<p>0円</p>"
+      p.style.fontWeight = "lighter"
+      p.style.color = "rgba(0,0,0, 0.3)"
+    }
     dbRefObject = firebase.database().ref().child('expenses').child(currentYear+"-"+Number(currentMonth+1)+"-"+dateNum)
     dbRefObject.on('child_added', function (snap) {
       let cellExpenses = snap.val()
       totalExpense += Number(cellExpenses.expense)
       p.innerHTML = totalExpense +"円"
+      p.style.color = "black"
     })
   }
 }
 
-function makeYYYYMM(year, month, monthId) {
-  var yyyydd = year + '年 ' + Number(month+1) + "月"
+function showExpenses() {
+  dbRefObject = firebase.database().ref().child('expenses').child(currentYear+"-"+Number(currentMonth+1)+"-"+currentDate)
+  preObject.innerHTML = ''
+  totalExpenseObject.innerHTML = '出費がありません😆'
+  let totalExpense = 0
+  dbRefObject.on('child_added', function (snap) {
+    let selectedDateExpenses = snap.val()
+    var uid = `${snap.key}`
+    preObject.innerHTML +=  "<li>" +
+    selectedDateExpenses.item + ": " +
+    selectedDateExpenses.description + " "+
+    selectedDateExpenses.expense + "円" +
+    "(" + selectedDateExpenses.purpose + ")" +
+    "<input type='submit' id='deleteExpense' onclick='deleteExpense(&quot;"+ uid + "&quot;)' value='削除'>" +
+    "</li>"
+    totalExpense += Number(selectedDateExpenses.expense)
+    totalExpenseObject.innerHTML = "合計 " + totalExpense + "円"
+  })
+}
+
+document.getElementById("deleteExpense").addEventListener('click', showExpenses(), false)
+
+function makeTitle(year, month, monthId) {
+  let yyyydd = year + '年 ' + Number(month+1) + "月"
   document.getElementById(monthId).innerHTML = yyyydd
 }
 
@@ -143,7 +164,7 @@ data.push(thirdWeek)
 data.push(fourthWeek)
 data.push(fifthWeek)
 makeTable(data,"table")
-makeYYYYMM(year, month, "month")
+makeTitle(year, month, "month")
 }
 
 window.addEventListener("load", makeExpenseTitle())
@@ -159,16 +180,20 @@ function addExpense(){
   writeExpenseData(currentYear+"-"+Number(currentMonth+1)+"-"+currentDate, expense, purpose, item, description)
 }
 
+function deleteExpense(uid){
+  removeExpenseData(currentYear+"-"+Number(currentMonth+1)+"-"+currentDate, uid)
+  makeTable()
+}
+
 // TODO: 一つにする
 function showPreviousMonth() {
   // delete calendar before make new one
   document.getElementById("table").textContent = null
   currentMonth--
   if (currentMonth < 0){
-    currentYear--
     currentMonth = 11
   }
-  this.makeCalendar(currentYear, currentMonth)
+  makeCalendar(currentYear, currentMonth)
   totalExpenseObject.innerHTML =　''
 }
 
@@ -177,9 +202,8 @@ function showNextMonth() {
   document.getElementById("table").textContent = null
   currentMonth++
   if (currentMonth > 11) {
-    currentYear++
     currentMonth = 0
   }
-  this.makeCalendar(currentYear, currentMonth)
+  makeCalendar(currentYear, currentMonth)
   totalExpenseObject.innerHTML =　''
 }

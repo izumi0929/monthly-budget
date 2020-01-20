@@ -17,3 +17,8 @@ function writeExpenseData(date, expense, purpose, item, description) {
     }
   )
 }
+
+//remove data
+function removeExpenseData(date, uid) {
+  firebase.database().ref('expenses/' + date + '/' + uid).remove()
+}

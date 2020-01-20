@@ -1,0 +1,88 @@
+@media screen and (max-width:480px){
+
+html {
+  font-size: 10px;
+  font-family: 'YuGothic', sans-serif;
+  color: rgb(39, 39, 43);
+  background: linear-gradient(90deg, rgb(204, 161, 180)  0%,rgba(97,127,162,1) 120%);
+  min-width: 480px;
+}
+
+body {
+  margin: 0 auto;
+  font-size: 1em;
+}
+
+header {
+  position: relative;
+  text-align: center;
+  height: 4em;
+}
+
+main {
+  width: 90%;
+  margin: 0 auto;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+button img {
+  display: block;
+  width: 3em;
+}
+
+.left-button {
+  position: absolute;
+  left: 1em;
+  top: 0.5em;
+}
+
+.right-button {
+  position: absolute;
+  right: 1em;
+  top: 0.5em;
+}
+
+.title {
+  font-size: 3em;
+  font-weight: bold;
+  display: inline;
+  margin: 1em 0em;
+}
+
+table {
+  max-width: 80%;
+  margin: 5% auto;
+  border-spacing: 0.5em;
+}
+
+td {
+  border-radius: 5%;
+  font-weight: bolder;
+  cursor: pointer;
+  width: 3em;
+}
+
+td:hover {
+  background-color: darkkhaki;
+}
+
+.cellTotal {
+  text-align: right;
+  padding-right: 1em;
+  line-height: 1em;
+  padding-bottom: 0em;
+}
+
+.expense-input {
+  text-align: right;
+  padding-bottom: 0.5em;
+  margin-right: 0;
+}
+
+}
