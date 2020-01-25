@@ -191,6 +191,7 @@ function showPreviousMonth() {
   document.getElementById("table").textContent = null
   currentMonth--
   if (currentMonth < 0){
+    currentYear--
     currentMonth = 11
   }
   makeCalendar(currentYear, currentMonth)
@@ -202,6 +203,7 @@ function showNextMonth() {
   document.getElementById("table").textContent = null
   currentMonth++
   if (currentMonth > 11) {
+    currentYear++
     currentMonth = 0
   }
   makeCalendar(currentYear, currentMonth)
