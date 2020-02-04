@@ -74,4 +74,45 @@ td:hover {
   padding-bottom: 0em;
 }
 
+input {
+  appearance: none; /* 標準のスタイルを無効にする */
+  width: 130px; /* ボックスの高さを指定する */
+  padding: 10px 15px; /* ボックス内側の余白を指定する */
+  border: none; /* 境界線をなしに指定する */
+  border-radius: 5px; /* 角丸を指定する */
+}
+
+select {
+  appearance: none; /* 標準のスタイルを無効にする */
+  width: 150px; /* ボックスの高さを指定する */
+  padding: 10px 15px; /* ボックス内側の余白を指定する */
+  border: none; /* 境界線をなしに指定する */
+  border-radius: 5px; /* 角丸を指定する */
+  }
+
+.expense-input {
+  font-size: 1.3em;
+  margin-bottom: .5em;
+}
+
+.expense-input:last-child {
+  display: inline;
+}
+
+.expense-input:nth-last-child(2) {
+  display: inline;
+}
+
+li {
+  margin-bottom: .5em;
+}
+
+.input-button {
+  display: inline;
+  margin-left: 10px;
+  background-color: rgba(205, 213, 223,1);
+  cursor: pointer;
+  width: 50px;
+}
+
 }

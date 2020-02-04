@@ -24,6 +24,10 @@ main {
   margin: 0 auto;
 }
 
+.input-output {
+  width: 80%;
+}
+
 button {
   padding: 0;
   border: none;
@@ -83,6 +87,17 @@ td:hover {
   text-align: right;
   padding-bottom: 0.5em;
   margin-right: 0;
+}
+
+li {
+  list-style-type: none;
+  text-align: right;
+  margin-right: 10%;
+}
+
+#totalExpense {
+  text-align: right;
+  margin-right: 10%;
 }
 
 }

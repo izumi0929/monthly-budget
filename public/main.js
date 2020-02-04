@@ -28,7 +28,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-// Get a reference to the database service
+// Firebase からDBを取得
 let database = firebase.database();
 
 //Elementの取得
@@ -120,7 +120,7 @@ function showExpenses() {
     selectedDateExpenses.description + " "+
     selectedDateExpenses.expense + "円" +
     "(" + selectedDateExpenses.purpose + ")" +
-    "<input type='submit' id='deleteExpense' onclick='deleteExpense(&quot;"+ uid + "&quot;)' value='削除'>" +
+    "<input class='input-button' type='submit' id='deleteExpense' onclick='deleteExpense(&quot;"+ uid + "&quot;)' value='削除'>" +
     "</li>"
     totalExpense += Number(selectedDateExpenses.expense)
     totalExpenseObject.innerHTML = "合計 " + totalExpense + "円"
@@ -129,9 +129,8 @@ function showExpenses() {
 
 document.getElementById("deleteExpense").addEventListener('click', showExpenses(), false)
 
-function makeTitle(year, month, monthId) {
-  let yyyydd = year + '年 ' + Number(month+1) + "月"
-  document.getElementById(monthId).innerHTML = yyyydd
+function makeTitle(year, month) {
+  document.getElementById('year-month').innerHTML = year + '年 ' + Number(month+1) + "月"
 }
 
 window.addEventListener("load", makeCalendar(currentYear, currentMonth))
@@ -163,8 +162,8 @@ data.push(secondWeek)
 data.push(thirdWeek)
 data.push(fourthWeek)
 data.push(fifthWeek)
-makeTable(data,"table")
 makeTitle(year, month, "month")
+makeTable(data,"table")
 }
 
 window.addEventListener("load", makeExpenseTitle())
